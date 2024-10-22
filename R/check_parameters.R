@@ -10,6 +10,23 @@
 #' @param parameters list of parameters
 #' @param rec_dev_type Type of recruitment deviations: "barycentric", "redundant" or "none"
 #' @param silent TRUE to receive more information
+#' 
+#' 
+#' @description
+#' 'check_data' returns an amended list of model input parameters See details.
+#'
+#'
+#' @details
+#' The parameters you must specify include:
+#' - Rinit: virgin recruitment
+#' - h or xi: steepness or transformed steepness
+#' - M: natural mortality
+#' - mu, k: parameters (mean and 1/variance) of von Mises distribution
+#' - q1, q2: parameters for catchability pattern
+#' - lsigmaR_sq: measure of variance for recruitment deviations
+#' - lsigmaI_sq: measure of variance for abundance indices
+#' - zeta: recruitment deviations for 'barycentric' rec_dev_type
+#' - log_R_star: recruitment deviations for 'redundant' rec_dev_type
 #'
 #' @return updated list of parameters
 #' @export
@@ -33,7 +50,7 @@ check_parameters <- function(parameters, rec_dev_type, silent = FALSE){
              Please provide the initial value for the recruitment deviations.")
     }
     if (!is.null(parameters$log_R_star)){
-      if (!silent){message(crayon::magenta('Barycentric recruitment deviations specified, data$log_R_star will be ignored.'))}
+      if (!silent){message(crayon::magenta('Barycentric recruitment deviations specified, parameters$log_R_star will be ignored.'))}
     } else {
       parameters$log_R_star <- 0*parameters$zeta
     }
