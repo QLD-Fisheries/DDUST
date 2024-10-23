@@ -63,9 +63,18 @@ check_data <- function(data, silent = FALSE){
            Please provide a vector of length 12 indicating the proportion of spawning that occurs each month. \n
            Vector will aggregate according to data$Number_months_per_timestep.")
   }
+    if (!length(data$proportion_spawning) == 12) {
+    stop("Incorrect length of 'data$proportion_spawning' vector defined. \n
+           Please provide a vector of length 12 indicating the proportion of spawning that occurs each month. \n
+           Vector will aggregate according to data$Number_months_per_timestep.")
+  }
   # DATA_VECTOR(weight_at_recruitment);
   if (is.null(data$weight_at_recruitment)) {
     stop("No 'data$weight_at_recruitment' value defined. \n
+             Please provide a vector of length 2 indicating the weight of a pre-recruit and the weight of a recruit.")
+  }
+  if (!length(data$weight_at_recruitment) == 2) {
+    stop("Incorrect length of 'data$weight_at_recruitment' vector defined. \n
              Please provide a vector of length 2 indicating the weight of a pre-recruit and the weight of a recruit.")
   }
   # DATA_SCALAR(weight_inf);
@@ -104,7 +113,7 @@ check_data <- function(data, silent = FALSE){
              Please provide an array of standardised catch per unit effort standard deviation.")
   }
   if (!any(dim(data$cpue)==dim(data$cpue_sd))){
-    warning("Length of cpue and cpue_sd should match.")
+    warning("Dimension of cpue and cpue_sd should match.")
   }
   # DATA_VECTOR(month_sequence); # to be refined/removed in a later issue.
   if (is.null(data$month_sequence)) {
@@ -117,6 +126,9 @@ check_data <- function(data, silent = FALSE){
   }
   if (!is.null(data$rho_input) & data$calculate_rho == 1) {
     message(crayon::magenta("Ignoring data$rho_input. rho calculated inside the model using weight_at_recruitment and weight_inf."))
+  }
+  if (is.null(data$rho_input) & data$calculate_rho == 1) {
+    message(crayon::magenta("No 'data$absolute_biomass_sd' value defined. Using '1' by default but replaced by calculation in model."))
   }
   # DATA_INTEGER(calculate_rho);
   if (is.null(data$calculate_rho)) {

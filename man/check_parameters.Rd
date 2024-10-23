@@ -17,7 +17,21 @@ check_parameters(parameters, rec_dev_type, silent = FALSE)
 updated list of parameters
 }
 \description{
-Check parameters for DDUST model
+'check_data' returns an amended list of model input parameters See details.
+}
+\details{
+The parameters you must specify include:
+\itemize{
+\item Rinit: virgin recruitment
+\item h or xi: steepness or transformed steepness
+\item M: natural mortality
+\item mu, k: parameters (mean and 1/variance) of von Mises distribution
+\item q1, q2: parameters for catchability pattern
+\item lsigmaR_sq: measure of variance for recruitment deviations
+\item lsigmaI_sq: measure of variance for abundance indices
+\item zeta: recruitment deviations for 'barycentric' rec_dev_type
+\item log_R_star: recruitment deviations for 'redundant' rec_dev_type
+}
 }
 \examples{
 parameters <- check_parameters(parameters, rec_dev_type = 'redundant')
