@@ -25,30 +25,17 @@ You can install the development version of DDUST from
 devtools::install_github("QLD-Fisheries/DDUST")
 ```
 
-If you see the message ‘check that you have the required permissions to
-access the repo’ this means the repo is private and you need a Personal
-Access Token (PAT) to access it. From your github profile, go to
-**Settings** -\> **Developer Settings** -\> **Personal access tokens**
--\> **Tokens (classic)** -\> **Generate new token (classic)**. Add a
-note, choose an expiration length, check all the required scopes and
-Generate Token. Save your token. Configure SSO and select QLD-Fisheries
-to authorise the token. Now you can install the repository with:
-
-``` r
-devtools::install_github("QLD-Fisheries/DDUST", auth_token = 'abcdef_123456_ghijklm_7890')
-```
-
 ## Example
 
 Once DDUST is installed, the user will create a list of data and
 parameters. The easiest way to use DDUST is with the function
 `run_DDUST()` which will 1) check the inputs objects with `check_data()`
 and `check_parameters()`, 2) use the data and parameters to build a TMB
-model with `TMB::makeADreport()`, 3) optimise using `stats::optim()`, 4)
-extract parameter uncertainty with `TMB::sdreport()` and 5) collate all
-relevant objects using `DDUST_output()`. For more customisation, the
-user can run each step of `run_DDUST()` separately or replace with their
-own preferences.
+model with `TMB::makeADreport()` or `make_DD_model()`, 3) optimise using
+`stats::optim()`, 4) extract parameter uncertainty with
+`TMB::sdreport()` and 5) collate all relevant objects using
+`DDUST_output()`. For more customisation, the user can run each step of
+`run_DDUST()` separately or replace with their own preferences.
 
 The DDUST package also comes with example data and example parameters to
 help with set up.
@@ -100,14 +87,11 @@ package SSAND. You can install the development version of SSAND from
 devtools::install_github("QLD-Fisheries/SSAND")
 ```
 
-Alternatively, some legacy plotting functions remain as part of DDUST.
-Each plot has a function called `plottype_prep.R` to prepare the model
-results for plotting. Some plots are for comparing multiple models. This
-example shows a spaghetti plot for six (6) scenarios:
+Some plots are for comparing multiple models. This example shows a
+spaghetti plot for six (6) scenarios:
 
 ``` r
 library(SSAND)
-library(DDUST)
 SSAND::spaghettiplot(spaghettiplot_prep_DD(dd_mle))
 ```
 
