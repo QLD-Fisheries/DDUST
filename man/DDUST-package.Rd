@@ -8,7 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-A delay-difference R package that allows the user to specify the time step used for delays and incorporates seasonal variation in recruitment, spawning, and catchability. The delay difference with user specified time step (DDUST) and random effect delay difference with user specified time step (REDDUST) models allow for monthly, bimonthly, trimonthly, quadmonthly, semi-annual and annual biomass dynamics. REDDUST extends DDUST by treating annual recruitment variations as random effects.
+A delay-difference R package that allows the user to specify the time step used for delays and incorporates seasonal variation in recruitment, spawning, and catchability. The delay difference with user specified time step (DDUST) model allows for monthly, bimonthly, trimonthly, quadmonthly, semi-annual and annual biomass dynamics.
 }
 \author{
 \strong{Maintainer}: Montana Wickens \email{fisheriesassessment@daf.qld.gov.au} (\href{https://orcid.org/0000-0002-7316-014X}{ORCID})
