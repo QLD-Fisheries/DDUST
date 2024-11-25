@@ -9,7 +9,7 @@ run_DDUST(
   parameters,
   map,
   silent = FALSE,
-  laplace = TRUE,
+  laplace = FALSE,
   maxit = 5e+05,
   MCMC = FALSE,
   chains = 5,
@@ -29,7 +29,7 @@ run_DDUST(
 
 \item{silent}{TRUE to silence console output}
 
-\item{laplace}{TRUE to use laplace approximation for recruitment deviation parameters}
+\item{laplace}{FALSE to not use laplace approximation for recruitment deviation parameters}
 
 \item{maxit}{maximum number of iterations passed to nlminb()}
 

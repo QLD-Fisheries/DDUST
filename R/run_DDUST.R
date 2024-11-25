@@ -18,7 +18,7 @@
 #' @param parameters list of parameters
 #' @param map list of fixed parameters
 #' @param silent TRUE to silence console output
-#' @param laplace TRUE to use laplace approximation for recruitment deviation parameters
+#' @param laplace FALSE to not use laplace approximation for recruitment deviation parameters
 #' @param MCMC TRUE to run MCMC after MLE
 #' @param chains number of chains, passed to tmbstan()
 #' @param iter number of iterations, passed to tmbstan()
@@ -60,7 +60,7 @@
 #' # Collate objects
 #' dd_mle <- DDUST_output(rep, fit, data, parameters, map, model)
 #'}
-run_DDUST <- function(data, parameters, map, silent = FALSE, laplace = TRUE, maxit = 500000, MCMC = FALSE, chains = 5, iter = 1000, init = 'par', lower = NULL, upper = NULL, ...){
+run_DDUST <- function(data, parameters, map, silent = FALSE, laplace = FALSE, maxit = 500000, MCMC = FALSE, chains = 5, iter = 1000, init = 'par', lower = NULL, upper = NULL, ...){
 
   if (!silent) message(crayon::blue("Checking data... \n"))
   data <- check_data(data, silent = silent)
@@ -68,6 +68,9 @@ run_DDUST <- function(data, parameters, map, silent = FALSE, laplace = TRUE, max
   if (!silent) message(crayon::blue("Checking parameters...\n"))
   parameters <- check_parameters(parameters, rec_dev_type = data$rec_dev_type, silent = silent)
   if (!silent) message(crayon::white("\U2714 Success \n"))
+  if (is.null(map$zeta) & is.null(map$log_R_star)) {
+    stop('Do not estimate zeta and log_R_star in the same model. Fix one of the parameters using map$zeta or map$log_R_star.')
+  }
   if (!silent) message(crayon::blue("Making DDUST model... \n"))
   model <- make_DD_model(data, parameters, map, laplace)
   if (!silent){
