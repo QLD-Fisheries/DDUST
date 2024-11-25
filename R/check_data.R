@@ -125,10 +125,11 @@ check_data <- function(data, silent = FALSE){
     stop("Please provide 'data$rho_input' value when data$calculate_rho == 0.")
   }
   if (!is.null(data$rho_input) & data$calculate_rho == 1) {
-    message(crayon::magenta("Ignoring data$rho_input. rho calculated inside the model using weight_at_recruitment and weight_inf."))
+    if (!silent){message(crayon::magenta("Ignoring data$rho_input. rho calculated inside the model using weight_at_recruitment and weight_inf."))}
   }
   if (is.null(data$rho_input) & data$calculate_rho == 1) {
-    message(crayon::magenta("No 'data$absolute_biomass_sd' value defined. Using '1' by default but replaced by calculation in model."))
+    if (!silent){message(crayon::magenta("No 'data$rho_input' value defined. Using '1' by default but replaced by calculation in model."))}
+    data$rho_input <- 1
   }
   # DATA_INTEGER(calculate_rho);
   if (is.null(data$calculate_rho)) {

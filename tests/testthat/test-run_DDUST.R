@@ -122,7 +122,7 @@ test_that("Test 17", { # Annual timestep, recdevs barycentric, laplace, late sta
   map$lsigmaR_sq <- factor(NA)
   map$xi <- factor(NA)
 
-  dd_out <- run_DDUST(data, parameters, map, silent = TRUE)
+  dd_out <- run_DDUST(data, parameters, map, laplace = TRUE, silent = TRUE)
 
   expect_false(any(sapply(dd_out$dd_mle, function(list_element) {
     return(is.numeric(list_element) && any(is.nan(list_element)))
@@ -152,7 +152,7 @@ test_that("Test 21", { # Annual timestep, recdevs redundant, laplace, late start
   data <- check_data(data, silent = TRUE)
   parameters <- check_parameters(parameters, data$rec_dev_type, silent = TRUE)
   
-  dd_out <- run_DDUST(data, parameters, map, silent = TRUE)
+  dd_out <- run_DDUST(data, parameters, map, laplace = TRUE, silent = TRUE)
 
   expect_false(any(sapply(dd_out$dd_mle, function(list_element) {
     return(is.numeric(list_element) && any(is.nan(list_element)))
@@ -213,7 +213,7 @@ test_that("Test 42", { # Annual timestep, recdevs barycentric, laplace, projecti
   data$projection_harvest = rep(10000,data$projection_years*12/data$Number_months_per_timestep)
 
   # Run model
-  dd_out <- run_DDUST(data, parameters, map, MCMC = FALSE, silent = TRUE)
+  dd_out <- run_DDUST(data, parameters, map, laplace = TRUE, MCMC = FALSE, silent = TRUE)
   dd_out$dd_mle$msy
   # No NAN values
   expect_false(any(sapply(dd_out$dd_mle, function(list_element) {
@@ -302,3 +302,27 @@ test_that("Test 44", { # Annual timestep, recdevs barycentric, no laplace, proje
 })
 
 ### rec_dev_type 'redundant' ----
+
+
+# Miscellaneous tests ----
+
+test_that("Successfully detects missing rho_input and replaces with default", {
+  load("fixtures/test.rda")
+  test_data$rho_input <- NULL
+  test_data$calculate_rho <- 1
+  dd_out <- run_DDUST(test_data, test_pars, test_map, laplace = FALSE, silent = TRUE)
+  expect_equal(dd_out$dd_mle$data$rho_input,1)
+})
+
+test_that("Default behaviour: laplace = FALSE", {
+  load("fixtures/test.rda")
+  expect_no_error(run_DDUST(test_data, test_pars, test_map, silent = TRUE))
+})
+
+test_that("Don't estimate zeta and log_R_star", {
+  load("fixtures/test.rda")
+  test_map$zeta <- NULL
+  test_map$log_R_star <- NULL
+  expect_error(run_DDUST(test_data, test_pars, test_map, silent = TRUE),
+    "Do not estimate zeta and log_R_star in the same model.")
+})
