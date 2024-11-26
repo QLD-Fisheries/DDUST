@@ -72,13 +72,7 @@ data <- check_data(data, silent = TRUE)
 parameters <- check_parameters(parameters, rec_dev_type = data$rec_dev_type, silent = TRUE)
 
 # Make TMB model
-model <- TMB::MakeADFun(data = c(model = "DDUST",data),
-                        parameters,
-                        random = "log_R_star",
-                        DLL = "DDUST_TMBExports",
-                        map = map,
-                        hessian = TRUE,
-                        checkParameterOrder=FALSE)
+model <- make_DD_model(data, parameters, map, laplace = TRUE, hessian = TRUE)
 
 # Optimise
 fit <- optim(model$par, model$fn, model$gr)
