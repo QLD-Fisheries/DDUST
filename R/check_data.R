@@ -196,6 +196,9 @@ check_data <- function(data, silent = FALSE){
     if (!silent){message(crayon::magenta("No 'data$absolute_biomass' value defined. Vector filled with zeros, which the model will ignore."))}
     data$absolute_biomass <- 0*data$cpue
   }
+    if (!is.matrix(data$absolute_biomass)) {
+    if (!silent){message(crayon::magenta("Suggest making bsolute_biomass a matrix."))}
+  }
   # DATA_SCALAR(absolute_biomass_sd);
   if (is.null(data$absolute_biomass_sd)) {
     if (!silent){message(crayon::magenta("No 'data$absolute_biomass_sd' value defined. Using '1' by default."))}
