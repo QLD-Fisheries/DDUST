@@ -2,8 +2,8 @@ Package: DDUST
 Title: Delay-Difference with User Specified Timestep
 Version: 1.3.1
 Authors@R: c(
-    person("Montana", "Wickens", , "fisheriesassessment@daf.qld.gov.au", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-7316-014X")),
-    person("Robyn", "Lovett", role = c("aut"), comment = c(ORCID = "0009-0005-3414-0065")),
+    person("Robyn", "Lovett", , "fisheriesassessment@daf.qld.gov.au", role = c("aut", "cre"), comment = c(ORCID = "0009-0005-3414-0065")),
+    person("Montana", "Wickens", role = c("aut"), comment = c(ORCID = "0000-0002-7316-014X")),
     person("Alise", "Fox", role = c("aut"), comment = c(ORCID = "0009-0002-5634-0963")),
     person("Alexander", "Campbell", role = c("aut"), comment = c(ORCID = "0000-0001-7151-5501")),
     person("Michael", "O'Neill", role = c("ctb")),
@@ -14,7 +14,7 @@ License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
-Suggests: 
+Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Imports:
@@ -25,10 +25,10 @@ Imports:
     stats,
     TMB (>= 1.9.3),
     tmbstan
-LinkingTo: 
+LinkingTo:
     RcppEigen,
     TMB
-Depends: 
+Depends:
     R (>= 3.5.0)
 LazyData: true
 LazyDataCompression: xz
