@@ -11,11 +11,11 @@
 A delay-difference R package that allows the user to specify the time step used for delays and incorporates seasonal variation in recruitment, spawning, and catchability. The delay difference with user specified time step (DDUST) model allows for monthly, bimonthly, trimonthly, quadmonthly, semi-annual and annual biomass dynamics.
 }
 \author{
-\strong{Maintainer}: Montana Wickens \email{fisheriesassessment@daf.qld.gov.au} (\href{https://orcid.org/0000-0002-7316-014X}{ORCID})
+\strong{Maintainer}: Robyn Lovett \email{fisheriesassessment@daf.qld.gov.au} (\href{https://orcid.org/0009-0005-3414-0065}{ORCID})
 
 Authors:
 \itemize{
-  \item Robyn Lovett (\href{https://orcid.org/0009-0005-3414-0065}{ORCID})
+  \item Montana Wickens (\href{https://orcid.org/0000-0002-7316-014X}{ORCID})
   \item Alise Fox (\href{https://orcid.org/0009-0002-5634-0963}{ORCID})
   \item Alexander Campbell (\href{https://orcid.org/0000-0001-7151-5501}{ORCID})
 }
