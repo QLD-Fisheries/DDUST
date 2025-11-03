@@ -23,7 +23,7 @@ struct vonMises {
   vonMises (Type kappa_, Type mu_)
   : kappa (kappa_), mu (mu_) {}
   Type operator()(Type x){
-    return exp(kappa*cos(x-mu))/(2*PI*besselI(kappa,Type(0)));
+    return exp(kappa*cos(x-mu))/(2*M_PI*besselI(kappa,Type(0)));
   }
 };
 
@@ -349,7 +349,7 @@ struct Functor {
     PopulationVectors<Type> Population = PopulationDynamics(projection_years, B_initial, N_initial, R_initial, sp_total, sp_total, rho, weight_at_recruitment, mid_surv,
                                                        sp_pattern, dt, h, rec_pattern, M, F_mort(0), R0, dummyarray, dummyvec, false, false, dummyvec, none,
                                                        dummyvec, none, none, F_pattern, q_pattern);
-  
+
     Type final_yield = Population.AnnualYield.sum(); //vector has length = projection_years, so -1 to access last index
     Type final_biomass_ratio = Population.AnnualBiomass(projection_years-1)/(sum(B_initial)/12);
 
@@ -452,7 +452,7 @@ Type DDUST(objective_function<Type>* obj) {
   PARAMETER(q2);
   PARAMETER(lsigmaR_sq);
   PARAMETER(lsigmaI_sq);
-  PARAMETER_VECTOR(zeta); 
+  PARAMETER_VECTOR(zeta);
   PARAMETER_VECTOR(log_R_star);
 
   // Derived quantities
@@ -506,8 +506,8 @@ Type DDUST(objective_function<Type>* obj) {
   vector<Type> phi_t(12);
   phi_t.fill(1/12);
   for (int t=0;t<12;t++){
-    Type b1 = 2*PI/12*t - PI;
-    Type b2 = 2*PI/12*(t+1) - PI;
+    Type b1 = 2*M_PI/12*t - M_PI;
+    Type b2 = 2*M_PI/12*(t+1) - M_PI;
     phi_t(t) = romberg::integrate(f, b1, b2);
   }
 
@@ -657,7 +657,7 @@ Type DDUST(objective_function<Type>* obj) {
     HarvestRate = HistoricalPeriod.HarvestRate;
     Yield = HistoricalPeriod.Yield;
     Effort = HistoricalPeriod.Effort;
-    
+
   }
 
   // Calculate annual biomass ratio
@@ -691,7 +691,7 @@ Type DDUST(objective_function<Type>* obj) {
   log_q = qratio/count;
 
   // Set up predicted catch rate variables
-  vector<Type> t_seq = 2*PI*month_sequence/12;
+  vector<Type> t_seq = 2*M_PI*month_sequence/12;
   matrix<Type> pred_cpue(cpue.rows(),cpue.cols());
   vector<Type> q(dt);
   vector<Type> cpueLL(cpue.rows());
@@ -797,7 +797,7 @@ Type DDUST(objective_function<Type>* obj) {
   // Start projections
   if (do_projections){
 
-    
+
     // Extract economic data from list
     // Type econ_cL = economic_data.cL(0);
     // Type econ_cM = economic_data.cM(0);
@@ -911,26 +911,26 @@ Type DDUST(objective_function<Type>* obj) {
     ADREPORT(N_eq);
     ADREPORT(R_eq);
 
-    PopulationVectors<Type> TargetProjection = PopulationDynamics(projection_years, B_start_projection, N_start_projection, R_start_projection, 
+    PopulationVectors<Type> TargetProjection = PopulationDynamics(projection_years, B_start_projection, N_start_projection, R_start_projection,
                                                       SpYr(num_years-1), sp_total, rho, weight_at_recruitment, mid_surv, // Start projection from current biomass instead of equilibrium
                                                       sp_pattern, dt, h, rec_pattern, M, Ftarg(0), R0, cpue, ctch, false, false, eta, none,
                                                       log_R_star, first_year_rec_devs, first_year_catch, F_pattern, q); // B_initial etc need to be vectors
 
-    PopulationVectors<Type> MSYProjection = PopulationDynamics(projection_years, B_start_projection, N_start_projection, R_start_projection, 
+    PopulationVectors<Type> MSYProjection = PopulationDynamics(projection_years, B_start_projection, N_start_projection, R_start_projection,
                                                       SpYr(num_years-1), sp_total, rho, weight_at_recruitment, mid_surv, // Start projection from current biomass instead of equilibrium
                                                       sp_pattern, dt, h, rec_pattern, M, Fmsy(0), R0, cpue, ctch, false, false, eta, none,
                                                       log_R_star, first_year_rec_devs, first_year_catch, F_pattern, q); // B_initial etc need to be vectors
 
-    PopulationVectors<Type> MEYProjection = PopulationDynamics(projection_years, B_start_projection, N_start_projection, R_start_projection, 
+    PopulationVectors<Type> MEYProjection = PopulationDynamics(projection_years, B_start_projection, N_start_projection, R_start_projection,
                                                       SpYr(num_years-1), sp_total, rho, weight_at_recruitment, mid_surv, // Start projection from current biomass instead of equilibrium
                                                       sp_pattern, dt, h, rec_pattern, M, Fmey(0), R0, cpue, ctch, false, false, eta, none,
                                                       log_R_star, first_year_rec_devs, first_year_catch, F_pattern, q); // B_initial etc need to be vectors
 
-    PopulationVectors<Type> HarvestProjection = PopulationDynamics(projection_years, B_start_projection, N_start_projection, R_start_projection, 
+    PopulationVectors<Type> HarvestProjection = PopulationDynamics(projection_years, B_start_projection, N_start_projection, R_start_projection,
                                                       SpYr(num_years-1), sp_total, rho, weight_at_recruitment, mid_surv, // Start projection from current biomass instead of equilibrium
                                                       sp_pattern, dt, h, rec_pattern, M, Fmsy(0), R0, cpue, projection_harvest, true, false, eta, none,
                                                       log_R_star, first_year_rec_devs, first_year_catch, F_pattern, q); // B_initial etc need to be vectors
-    
+
     // Report projection results
     REPORT(msy);
     REPORT(Fmsy);
@@ -995,7 +995,7 @@ Type DDUST(objective_function<Type>* obj) {
     ADREPORT(MEY_yield_curve);
     ADREPORT(TargetProjection.AnnualYield);
     ADREPORT(TargetProjection.AnnualBiomass);
-    ADREPORT(TargetProjection.Biomass);  
+    ADREPORT(TargetProjection.Biomass);
     ADREPORT(TargetProjection.Yield);
     ADREPORT(MSYProjection.AnnualYield);
     ADREPORT(MSYProjection.AnnualBiomass);
