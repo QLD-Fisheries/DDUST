@@ -18,6 +18,7 @@ Authors:
   \item Montana Wickens (\href{https://orcid.org/0000-0002-7316-014X}{ORCID})
   \item Alise Fox (\href{https://orcid.org/0009-0002-5634-0963}{ORCID})
   \item Alexander Campbell (\href{https://orcid.org/0000-0001-7151-5501}{ORCID})
+  \item Justin Cameron
 }
 
 Other contributors:
